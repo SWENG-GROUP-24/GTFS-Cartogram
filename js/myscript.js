@@ -2,6 +2,7 @@ markers = [];
 mapbox_apikey = 'pk.eyJ1IjoiYm9idG9tODQ4MiIsImEiOiJjazZzMXh1YmEwYmJrM2ZtbHU1dm5pZW92In0.5070Es5hbrpyO-li0XagsA'; 
 thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
 var mymap;
+var myRenderer;
 var centres = {
 	ireland: [53.5, -7.9],
 	switzerland: [47, 8.3]
@@ -25,6 +26,8 @@ function makeMap() {
 		maxZoom: 22
 	}).addTo(mymap);
 
+	myRenderer = L.canvas({padding: 0.5});
+
 	getData();
 }
 
@@ -40,8 +43,8 @@ function getData() {
 
 function parseCSV(csv) {
 	parsed = Papa.parse(csv);
-	createMarkers(parsed);
-	// plotPoints(parsed);
+	// createMarkers(parsed);
+	plotPoints(parsed);
 }
 
 var customIcon = L.icon({
