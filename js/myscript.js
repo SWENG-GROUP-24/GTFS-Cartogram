@@ -43,8 +43,8 @@ function getData() {
 
 function parseCSV(csv) {
 	parsed = Papa.parse(csv);
-	// createMarkers(parsed);
-	plotPoints(parsed);
+	createMarkers(parsed);
+	// plotPoints(parsed);
 }
 
 var customIcon = L.icon({
