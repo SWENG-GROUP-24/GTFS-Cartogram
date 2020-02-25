@@ -43,14 +43,34 @@ var customIcon = L.icon({
 })
 
 function createMarkers(csv) {
-	for (let i = 1; i < csv.data.length-1; i++) {
-		lat = csv.data[i][2];
-		long = csv.data[i][3];
+	// for (let i = 1; i < csv.data.length-1; i++) {
+		lat = csv.data[1][2];
+		long = csv.data[1][3];
 		console.log(lat + " " + long);
 		let coord = L.latLng(lat,long)
 		let marker = new L.marker(coord, {icon: customIcon});
 		markers.push(marker);
 		marker.addTo(mymap);
-	}
+
+		connollyX = 53.3524594780812;
+		connollyY  = -6.24708495616048;
+
+		m2 = new L.marker(L.latLng(connollyX,connollyY));
+		m2.addTo(mymap);
+
+		newP = lineDividing(lat, long, connollyX, connollyY, 1,-5);
+
+		console.log(newP);
+
+		m1 = new L.marker(L.latLng(newP.p1, newP.p2));
+
+		m1.addTo(mymap);
+	// }
+}
+
+function lineDividing(x1, y1, x2, y2, a, b) {
+	p1 = (b*x1 + a*x2)/(a+b);
+	p2 = (b*y1 + a*y2)/(a+b);
+	return {p1,p2};
 }
 
