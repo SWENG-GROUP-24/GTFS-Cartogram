@@ -35,6 +35,12 @@ function parseCSV(csv) {
 	createMarkers(parsed);
 }
 
+var customIcon = L.icon({
+	
+	iconUrl: 'https://www.stickpng.com/assets/images/58afdad6829958a978a4a693.png',
+    iconSize: [8, 8],
+	
+})
 
 function createMarkers(csv) {
 	for (let i = 1; i < csv.data.length-1; i++) {
@@ -42,7 +48,7 @@ function createMarkers(csv) {
 		long = csv.data[i][3];
 		console.log(lat + " " + long);
 		let coord = L.latLng(lat,long)
-		let marker = new L.marker(coord);
+		let marker = new L.marker(coord, {icon: customIcon});
 		markers.push(marker);
 		marker.addTo(mymap);
 	}
