@@ -41,12 +41,13 @@ function getData() {
 function parseCSV(csv) {
 	parsed = Papa.parse(csv);
 	createMarkers(parsed);
+	// plotPoints(parsed);
 }
 
 var customIcon = L.icon({
 	
 	iconUrl: 'https://www.stickpng.com/assets/images/58afdad6829958a978a4a693.png',
-    iconSize: [4, 4],
+    iconSize: [5, 5],
 	
 })
 
