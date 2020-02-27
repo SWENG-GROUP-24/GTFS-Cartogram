@@ -63,10 +63,10 @@ function parseCSV(csv) {
 
 var customIcon = L.icon({
 	
-	iconUrl: 'https://www.stickpng.com/assets/images/58afdad6829958a978a4a693.png',
+	iconUrl: 'js/assets/images/circle.ico',
     iconSize: [5, 5],
 	
-})
+});
 
 function createMarkers(csv) {
 	for (let i = 1; i < csv.data.length-1; i++) {
