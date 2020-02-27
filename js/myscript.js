@@ -3,6 +3,7 @@ mapbox_apikey = 'pk.eyJ1IjoiYm9idG9tODQ4MiIsImEiOiJjazZzMXh1YmEwYmJrM2ZtbHU1dm5p
 thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
 var mymap;
 var myRenderer;
+var markersLayer;
 var centres = {
 	ireland: [53.5, -7.9],
 	switzerland: [47, 8.3]
@@ -27,6 +28,19 @@ function makeMap() {
 	}).addTo(mymap);
 
 	myRenderer = L.canvas({padding: 0.5});
+
+	markersLayer = new L.LayerGroup();
+	mymap.addLayer(markersLayer);
+
+	var controlSearch = new L.Control.Search({
+		position: 'topright',
+		layer: markersLayer,
+		initial: false,
+		zoom: 12,
+		marker: false
+	});
+
+	mymap.addControl( controlSearch );
 
 	getData();
 }
@@ -56,26 +70,36 @@ var customIcon = L.icon({
 
 function createMarkers(csv) {
 	for (let i = 1; i < csv.data.length-1; i++) {
-		lat = csv.data[i][2];
-		long = csv.data[i][3];
+		let lat = csv.data[i][2];
+		let long = csv.data[i][3];
+		let title = csv.data[i][1];
 		let coord = L.latLng(lat,long)
-		let marker = new L.marker(coord, {icon: customIcon});
+		let marker = new L.marker(coord, {
+			icon: customIcon, 
+			title: title
+		});
 		marker.bindPopup(csv.data[i][1]);
 		markers.push(marker);
-		marker.addTo(mymap);
+		markersLayer.addLayer(marker);
+		// marker.addTo(mymap);
 	}
 }
 
 
 function plotPoints(csv) {
 	for (let i = 1; i < csv.data.length-1; i++) {
-		lat = csv.data[i][2];
-		long = csv.data[i][3];
+		let lat = csv.data[i][2];
+		let long = csv.data[i][3];
+		let title = csv.data[i][1];
 		let coord = L.latLng(lat,long);
-		L.circleMarker(coord, {
+		let marker = new L.circleMarker(coord, {
 			renderer: myRenderer,
-			radius: 1
-		}).addTo(mymap).bindPopup(csv.data[i][1]);
+			radius: 1,
+			title: title
+		});
+		marker.bindPopup(csv.data[i][1]);
+		markersLayer.addLayer(marker);
+		// }).addTo(mymap).bindPopup(csv.data[i][1]);
 	}
 }
 
