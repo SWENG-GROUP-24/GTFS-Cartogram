@@ -41,6 +41,8 @@ function makeMap() {
 	});
 
 	mymap.addControl( controlSearch );
+	
+	
 
 	getData();
 }
@@ -69,7 +71,7 @@ var customIcon = L.icon({
 });
 
 function createMarkers(csv) {
-	for (let i = 1; i < csv.data.length-1; i++) {
+	for (let i = 1; i < csv.data.length; i++) {
 		let lat = csv.data[i][2];
 		let long = csv.data[i][3];
 		let title = csv.data[i][1];
@@ -82,6 +84,13 @@ function createMarkers(csv) {
 		markers.push(marker);
 		markersLayer.addLayer(marker);
 		// marker.addTo(mymap);
+
+	}
+}
+
+function removeMarkers(){
+	for(let i = 0; i < markers.length; i++){
+		map.removeLayer(markers[i]);
 	}
 }
 
