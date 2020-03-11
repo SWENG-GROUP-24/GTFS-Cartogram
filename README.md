@@ -16,3 +16,7 @@ This will output a number >= 0. Eg. if 0.5 is the result then the distance betwe
 Similarly if 2 is the result the distance should be doubled.
 
 This number will then be used in the point dividing a line segment formula to generate the new point.
+
+Backend data retriever hosted at https://intense-basin-71843.herokuapp.com/
+
+https://intense-basin-71843.herokuapp.com/data returns the current example data
