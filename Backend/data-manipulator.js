@@ -1,5 +1,18 @@
-var fs = require('fs');
-var parse = require('csv-parse');
+const fs = require('fs');
+const parse = require('csv-parse');
+
+
+var password = "";
+
+try {
+  password = fs.readFileSync('mongo_password.txt', 'UTF-8');
+} catch(err){
+  console.log(err);
+}
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://mendesr:"+password+"@sweng-ncj49.mongodb.net/test?retryWrites=true&w=majority";
+
 
 var inputFile = 'gtfs_data/stop_times.txt';
 var trip = [];
@@ -47,16 +60,36 @@ var stopTimesParser = parse({delimiter: ','}, function (err, data){
     }
   }
 
-  var jsonContent=JSON.stringify(processedData);
-
-  fs.writeFile("outputData.json", jsonContent, 'utf8', function (err) {
-    if (err) {
-        console.log("An error occured while writing JSON Object to File.");
-        return console.log(err);
-    }
- 
-    console.log("JSON file has been saved.");
-}); 
+  var dataToSend;
+  Object.keys(processedData).forEach(function(key) {
+    dataToSend={};
+    dataToSend={_id:key};
+    dataToSend['data'] = processedData[key];
+    sendData(dataToSend);
+  });
 });
 
 fs.createReadStream(inputFile).pipe(stopTimesParser);
+
+async function sendData (processedData) {
+  const client = await MongoClient.connect(uri, {useUnifiedTopology: true})
+    .catch(err => { console.log('Error occurred while connecting to MongoDB Atlas...\n',err); });
+
+  if (client) {
+    console.log("connected\n")
+  }
+
+  try {
+    const db = client.db("CartoMaps");
+
+    let collection = db.collection("Stations");
+
+    let res = await collection.insert(processedData);
+
+    console.log(res);
+  } catch(err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+}
