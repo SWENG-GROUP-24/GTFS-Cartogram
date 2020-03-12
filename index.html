@@ -1,20 +1,51 @@
-}
-</style>
-</head>
+<html>
+   <head>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+         crossorigin=""/>
+      <link rel="stylesheet" href="js/dependencies/leaflet-search/leaflet-search.css"/>
 
-<body>
-   <!-- <div id="mapid" style="width: 600px; height: 620px;"></div> -->
-   <div id="mapid"></div>
+      <script src="js/dependencies/leaflet/leaflet.js"></script>
+      <script src="js/dependencies/PapaParse/papaparse.js"></script>
+      <script src="js/dependencies/jQuery/jquery-3.1.1.min.js"></script>
+      <script src="js/dependencies/leaflet-search/leaflet-search.js"></script>
+      
+      <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script> 
+      <!-- Fixes violation: Added non-passive event listener to a scroll-blocking <some> event -->
 
-   <div id="userInput">
-
-      <label for="skey">Station Key:</label><br>
-      <input type="text" id="skey" name="skey"><br>
-      <p>e.g. 849GA00007, 844GA00003 or 837GA00022<p>
-
-   </div>
-
-</body>
-<script src="js/myscript.js" type="text/JavaScript"></script>
-
+      <style>
+         body {
+            padding: 0;
+            margin: 0;
+         }
+         html, body{
+		 height: 100%;
+		 width: 100%;
+		 }
+		 
+		 #mapid {
+            height: 90%;
+            width: 50%;
+         }
+		 #userInput {
+			width: 50%;
+			height: 5%;
+			float: left;
+		 }
+      </style>
+   </head>
+   <body>
+		<!-- <div id="mapid" style="width: 600px; height: 620px;"></div> -->
+      <div id="mapid"></div>
+	  
+	  <div id="userInput">
+	  
+		<label for="skey">Station Key:</label><br>
+		<input type="text" id="skey" name="skey"><br>
+		<p>e.g. 849GA00007, 844GA00003 or 837GA00022<p>
+		
+	  </div>
+	  
+   </body>
+   <script src="js/myscript.js" type="text/JavaScript"></script> 		
 </html>
