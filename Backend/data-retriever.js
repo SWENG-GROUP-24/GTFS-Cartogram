@@ -33,7 +33,7 @@ app.get('/data', function(req, res) {
 // Call to MongoDB
 async function getData (id) {
 
-  var password = "weLttJTuJjlrwRQF";
+  var password = "<redacted>";
 
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://mendesr:"+password+"@sweng-ncj49.mongodb.net/test?retryWrites=true&w=majority";
