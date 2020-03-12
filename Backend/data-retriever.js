@@ -3,37 +3,28 @@ const fs = require('fs');
 
 var app = express();
 
-// enable CORS
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-
-// function for each URL call
-// '/' is the simple homepage
+// This responds with "Hello World" on the homepage
 app.get('/', function (req, res) {
-   console.log("GET homepage");
-   res.send("Cartomaps Homepage");
+   console.log("Got a GET request for the homepage");
+   res.send("Hello GET");
 })
 
-// /data/ is the data call
-// ?id=<id> specifies the stop ID
 app.get('/data', function(req, res) {
   console.log("data call");
-  var id = req.query.id;
-  console.log(id);
-  getData(id)
-  .then(x => {
+  getData().then(x => {
+    console.log(x);
     res.send(x);
   });
 });
 
-// Call to MongoDB
-async function getData (id) {
-
+async function getData () {
   var password = "<redacted>";
+
+  // try {
+  //   password = fs.readFileSync('mongo_password.txt', 'UTF-8');
+  // } catch(err){
+  //   console.log(err);
+  // }
 
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://mendesr:"+password+"@sweng-ncj49.mongodb.net/test?retryWrites=true&w=majority";
@@ -52,15 +43,9 @@ async function getData (id) {
 
     let collection = db.collection("Stations");
 
-    let res = await collection.find({"_id":id}).toArray();
+    let res = await collection.find({"_id":"843GA00020"}).toArray();
 
-    // If result length is 0 => no results
-    // else return the results
-    if (res.length == 0) {
-      return "No Data Found (Check stop ID)";
-    } else {
-      return res[0];
-    }
+    return res[0];
 
   } catch(err) {
     console.log(err);
@@ -68,6 +53,8 @@ async function getData (id) {
     client.close();
   }
 }
+
+
 
 var server = app.listen(process.env.PORT || 3000, function () {
    var host = server.address().address
