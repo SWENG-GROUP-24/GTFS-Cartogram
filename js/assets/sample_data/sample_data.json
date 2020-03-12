@@ -1,0 +1,75 @@
+{
+    "_id": "843GA00020",
+    "data": [
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:03:00",
+            "arrival_time": "11:29:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:03:00",
+            "arrival_time": "11:29:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:20:00",
+            "arrival_time": "11:46:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:20:00",
+            "arrival_time": "11:46:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:18:00",
+            "arrival_time": "11:44:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:26:00",
+            "arrival_time": "11:52:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "11:20:00",
+            "arrival_time": "11:46:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:03:00",
+            "arrival_time": "20:30:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:03:00",
+            "arrival_time": "20:30:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:40:00",
+            "arrival_time": "21:12:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:55:00",
+            "arrival_time": "21:27:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:33:00",
+            "arrival_time": "21:10:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:33:00",
+            "arrival_time": "21:10:00"
+        },
+        {
+            "destination_station_id": "844GA00003",
+            "departure_time": "20:33:00",
+            "arrival_time": "21:10:00"
+        }
+    ]
+}
