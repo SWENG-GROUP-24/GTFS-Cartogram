@@ -1165,6 +1165,7 @@ var Evented = Class.extend(Events);
 			cancelAnimFrame(this._resizeRequest);
 			this._resizeRequest = null;
 		}
+	},
 
 		this._clearHandlers();
 
@@ -2348,6 +2349,7 @@ var Layers = Control.extend({
 		sortFunction: function (layerA, layerB, nameA, nameB) {
 			return nameA < nameB ? -1 : (nameB < nameA ? 1 : 0);
 		}
+		this.fire('contentupdate');
 	},
 
 	initialize: function (baseLayers, overlays, options) {
