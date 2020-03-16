@@ -1,6 +1,7 @@
 .mapid {
   width: 600px;
   height: 620px;
+  z-index: 1;
 }
 
 .topnav {
@@ -34,31 +35,47 @@
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
   position: absolute;
-  left: 10;
+  left: 50;
   top: 50;
+  background-color: yellow;
   float: right;
   padding: 6px;
   border: none;
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
-  z-index: 0;
+  z-index: 2;
 }
 
+/* Time input box*/
 .topnav input[type=time] {
   position: absolute;
-  left: 10;
-  top: 100;
+  left: 50;
+  top: 85;
+  background-color: yellow;
   float: right;
   padding: 6px;
   border: none;
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
-  z-index: 0;
+  z-index: 2;
 }
 
-
+.topnav input[type=button]{
+  position: absolute;
+  left: 50;
+  top: 126;
+  background-color: yellow;
+  float: right;
+  padding: 10px 24px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  z-index: 2;
+  cursor: pointer;
+}
 
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
