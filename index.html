@@ -18,15 +18,34 @@
             padding: 0;
             margin: 0;
          }
-         html, body, #mapid {
-            height: 100%;
-            width: 100%;
+         html, body{
+		 height: 100%;
+		 width: 100%;
+		 }
+		 
+		 #mapid {
+            height: 90%;
+            width: 50%;
          }
+		 #userInput {
+			width: 50%;
+			height: 5%;
+			float: left;
+		 }
       </style>
    </head>
    <body>
 		<!-- <div id="mapid" style="width: 600px; height: 620px;"></div> -->
       <div id="mapid"></div>
+	  
+	  <div id="userInput">
+	  
+		<label for="skey">Station Key:</label><br>
+		<input type="text" id="skey" name="skey"><br>
+		<p>e.g. 849GA00007, 844GA00003 or 837GA00022<p>
+		
+	  </div>
+	  
    </body>
    <script src="js/myscript.js" type="text/JavaScript"></script> 		
 </html>
