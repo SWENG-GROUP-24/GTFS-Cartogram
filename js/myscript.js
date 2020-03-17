@@ -47,6 +47,13 @@ function makeMap() {
 	getData();
 }
 
+function submitButton() {
+	var station = document.getElementById("stationInput").value;
+	console.log(station);
+	var time = document.getElementById("timeInput").value;
+	console.log(time);
+}
+
 function getData() {
 	$.ajax({
 		url : "https://raw.githubusercontent.com/SWENG-GROUP-24/GTFS-Cartogram/master/js/assets/trains/stops.txt",
@@ -74,7 +81,6 @@ function createMarkers(csv) {
 	for (let i = 1; i < csv.data.length-1; i++) {
 		let lat = csv.data[i][2];
 		let long = csv.data[i][3];
-		console.log(lat,long);
 		let title = csv.data[i][1];
 		let coord = L.latLng(lat,long);
 		let marker = new L.marker(coord, {
