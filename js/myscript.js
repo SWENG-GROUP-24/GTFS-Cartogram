@@ -48,6 +48,13 @@ function makeMap() {
 	
 }
 
+function submitButton() {
+	var station = document.getElementById("stationInput").value;
+	console.log(station);
+	var time = document.getElementById("timeInput").value;
+	console.log(time);
+}
+
 function getData() {
 	$.ajax({
 		url : "https://raw.githubusercontent.com/SWENG-GROUP-24/GTFS-Cartogram/darragh/js/assets/trains/stops.txt",
@@ -337,4 +344,3 @@ function lineDividing(x1, y1, x2, y2, a, b) {
 }
 
 start();
-
