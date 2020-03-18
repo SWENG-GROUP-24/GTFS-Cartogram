@@ -4,6 +4,7 @@ thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
 var mymap;
 var myRenderer;
 var markersLayer;
+var parsedCSV;
 var centres = {
 	ireland: [53.5, -7.9],
 	switzerland: [47, 8.3]
@@ -42,17 +43,17 @@ function makeMap() {
 
 	mymap.addControl( controlSearch );
 	
-	
 
 	getData();
 	
 }
 
 function submitButton() {
-	var station = document.getElementById("stationInput").value;
-	console.log(station);
+	var stationId = document.getElementById("stationInput").value;
+	console.log(stationId);
 	var time = document.getElementById("timeInput").value;
 	console.log(time);
+	getSampleData(stationId);
 }
 
 function getData() {
@@ -66,9 +67,9 @@ function getData() {
 }
 
 function parseCSV(csv) {
-	parsed = Papa.parse(csv);
-	
-	getSampleData(parsed);
+	parsedCSV = Papa.parse(csv);
+	console.log("parsed data");
+	// getSampleData(parsed);
 	//createMarkers(parsed);
 	// plotPoints(parsed);
 }
@@ -175,18 +176,16 @@ function plotOrigin(lat, long, title){
 	
 }
 
-function getSampleData(parsed){
+function getSampleData(stationId){
 	
 	// the sample input data located at https://intense-basin-71843.herokuapp.com/data
 	// was converted from a json to a csv, and is then loaded into 'sampleData' as seen below
-	
-	stationID = document.getElementById('skey').value;
-	
+		
 	$.ajax({
-		url : "https://intense-basin-71843.herokuapp.com/data?id="+stationID,
+		url : "https://intense-basin-71843.herokuapp.com/data?id="+stationId,
 		// url : "https://intense-basin-71843.herokuapp.com/data",		
 		success : function (data) {
-			sample(data, parsed);
+			sample(data, parsedCSV);
 		}
 	});
 	
