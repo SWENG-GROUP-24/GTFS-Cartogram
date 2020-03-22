@@ -53,13 +53,14 @@ function submitButton() {
 	console.log(stationId);
 	var time = document.getElementById("timeInput").value;
 	console.log(time);
-	getSampleData(stationId);
+	if (stationId){
+		getSampleData(stationId);
+	}
 }
 
 function getData() {
 	$.ajax({
 		url : "https://raw.githubusercontent.com/SWENG-GROUP-24/GTFS-Cartogram/darragh/js/assets/trains/stops.txt",
-		// url : "https://raw.githubusercontent.com/SWENG-GROUP-24/GTFS-Cartogram/darragh/js/assets/trains/stops.txt",		
 		success : function (data) {
 			parseCSV(data);
 		}
@@ -188,9 +189,6 @@ function getSampleData(stationId){
 			sample(data, parsedCSV);
 		}
 	});
-	
-	
-	
 	
 }
 
