@@ -49,16 +49,25 @@ function makeMap() {
 	
 }
 
+function onInput() {
+	var val = document.getElementById("stationInput").value;
+	var opts = document.getElementById("stationNames").childNodes;
+	for (var i = 0; i <opts.length; i++) {
+		if (opts[i].value === val) {
+			submitButton();
+			break;
+		}
+	}
+}
+
 function submitButton() {
-	var stationId = document.getElementById("stationInput").value;
-	// console.log(stopNameToId(stationId));
-	document.getElementById("stationInput").value = "";
+	var stationName = document.getElementById("stationInput").value;
+	var stationId = stopNameToId(stationName);
+	console.log(stationId);
 	var time = document.getElementById("timeInput").value;
-	console.log(time);
 	if (stationId != ""){
 		removeMarkers(stationId);
 
-		
 	}
 }
 
@@ -82,10 +91,27 @@ function getData() {
 
 function parseCSV(csv) {
 	parsedCSV = Papa.parse(csv);
+	getStationList();
+	insertDataList();
 	console.log("parsed data");
 	// getSampleData(parsed);
 	//createMarkers(parsed);
 	// plotPoints(parsed);
+}
+
+function insertDataList() {
+	var list = document.getElementById('stationNames');
+	stationNames.forEach(function(item) {
+		var option = document.createElement('option');
+		option.value = item;
+		list.appendChild(option);
+	});
+}
+
+function getStationList() {
+	for (let i = 1; i < parsedCSV.data.length; i++) {
+		stationNames.push(parsedCSV.data[i][1]);
+	}
 }
 
 var customIcon = L.icon({
@@ -205,6 +231,8 @@ function getSampleData(stationId){
 		url : "https://intense-basin-71843.herokuapp.com/data?id="+stationId,
 		// url : "https://intense-basin-71843.herokuapp.com/data",		
 		success : function (data) {
+			document.getElementById("stationInput").value = "";
+
 			sample(data, parsedCSV);
 		}
 	});
