@@ -1,6 +1,7 @@
 markers = [];
 mapbox_apikey = 'pk.eyJ1IjoiYm9idG9tODQ4MiIsImEiOiJjazZzMXh1YmEwYmJrM2ZtbHU1dm5pZW92In0.5070Es5hbrpyO-li0XagsA'; 
 thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
+stationNames = [];
 var mymap;
 var myRenderer;
 var markersLayer;
@@ -50,12 +51,24 @@ function makeMap() {
 
 function submitButton() {
 	var stationId = document.getElementById("stationInput").value;
-	console.log(stationId);
+	// console.log(stopNameToId(stationId));
+	document.getElementById("stationInput").value = "";
 	var time = document.getElementById("timeInput").value;
 	console.log(time);
-	if (stationId){
-		getSampleData(stationId);
+	if (stationId != ""){
+		removeMarkers(stationId);
+
+		
 	}
+}
+
+function stopNameToId(name) {
+	for (let i = 1; i < parsedCSV.data.length; i++) {
+		if (parsedCSV.data[i][1] == name) {
+			return parsedCSV.data[i][0];
+		}
+	}
+	return "nope";
 }
 
 function getData() {
@@ -108,16 +121,22 @@ function createMarkers(csv) {
 			title: title
 		});
 		marker.bindPopup(csv.data[i][1]);
-		markers.push(marker);
+		// markers.push(marker);
 		markersLayer.addLayer(marker);
 		// marker.addTo(mymap);
 	}
 }
 
-function removeMarkers(){
-	for(let i = 0; i < markers.length; i++){
-		markersLayer.removeLayer(markers[i]);
-	}
+function removeMarkers(stationId){
+	// for(let i = 0; i < markers.length; i++){
+	// 	markersLayer.removeLayer(markers[i]);
+	// 	// markers.splice(i,1);	
+	// }
+	markersLayer.eachLayer(function (layer) {
+		markersLayer.removeLayer(layer);
+	});
+	transformedPoints = [];
+	getSampleData(stationId);
 }
 
 
@@ -146,20 +165,20 @@ function plotPoint(lat, long, title){
 			title: title
 		});
 		marker.bindPopup(title);
-		markers.push(marker);
+		// markers.push(marker);
 		markersLayer.addLayer(marker);
 	
 }
 
 function plotTransformedPoint(lat, long, title){
-	
+		title = "New: " + title
 		let coord = L.latLng(lat,long);
 		let marker = new L.marker(coord, {
 			icon: transformedIcon, 
 			title: title
 		});
 		marker.bindPopup(title);
-		markers.push(marker);
+		// markers.push(marker);
 		markersLayer.addLayer(marker);
 	
 }
@@ -172,7 +191,7 @@ function plotOrigin(lat, long, title){
 			title: title
 		});
 		marker.bindPopup(title);
-		markers.push(marker);
+		// markers.push(marker);
 		markersLayer.addLayer(marker);
 	
 }
@@ -218,9 +237,7 @@ function sample(sampleData, csv){
 		for(let j=1; j<csv.data.length; j++){
 			
 			if(sampleData.data[i].destination_station_id==csv.data[j][0]){
-				
 				plotPoint(csv.data[j][2], csv.data[j][3], csv.data[j][1]);
-				
 			}
 			
 		}
