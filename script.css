@@ -1,96 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  background-color: #342D7E; }
+
 .mapid {
-  width: 600px;
-  height: 620px;
-  z-index: 1;
-}
+  /*width: 800px;*/
+  /*height: 620px;*/
+  height: 100%;
+  width: 100%;
+  z-index: 1; }
 
-.topnav {
-  overflow: hidden;
-  background-color: #e9e9e9;
-}
-
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Style the "active" element to highlight the current page */
-.topnav a.active {
-  background-color: #2196F3;
-  color: white;
-}
-
-/* Style the search box inside the navigation bar */
-.topnav input[type=text] {
-  position: absolute;
-  left: 50;
-  top: 50;
-  background-color: yellow;
-  float: right;
-  padding: 6px;
-  border: none;
-  margin-top: 8px;
-  margin-right: 16px;
-  font-size: 17px;
-  z-index: 2;
-}
-
-/* Time input box*/
-.topnav input[type=time] {
-  position: absolute;
-  left: 50;
-  top: 85;
-  background-color: yellow;
-  float: right;
-  padding: 6px;
-  border: none;
-  margin-top: 8px;
-  margin-right: 16px;
-  font-size: 17px;
-  z-index: 2;
-}
-
-.topnav input[type=button]{
-  position: absolute;
-  left: 50;
-  top: 126;
-  background-color: yellow;
-  float: right;
-  padding: 10px 24px;
-  border: none;
-  margin-top: 8px;
-  margin-right: 16px;
-  font-size: 17px;
-  z-index: 2;
-  cursor: pointer;
-}
-
-
-/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
-@media screen and (max-width: 600px) {
-  .topnav a, .topnav input[type=text] {
-    float: none;
+.container {
+  width: 20vw;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .container .searchbox {
+    position: absolute;
+    top: 10%;
+    left: 10%;
     display: block;
-    text-align: left;
     width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;
-  }
+    max-width: 53px;
+    transition: 0.4s linear;
+    overflow: hidden;
+    z-index: 2; }
+    .container .searchbox .searchbox__input {
+      display: block;
+      appearance: none;
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 50px;
+      background-color: #24233A;
+      padding: 15px;
+      color: #24233A;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.4s linear; }
+      .container .searchbox .searchbox__input::placeholder {
+        color: #24233A; }
+    .container .searchbox .searchbox__icon {
+      position: absolute;
+      right: calc(53px / 2);
+      top: 50%;
+      transform: translate(50%, -50%);
+      width: 20px;
+      height: 20px;
+      pointer-events: none; }
+      .container .searchbox .searchbox__icon path {
+        fill: #00F494;
+        transition: 0.4s linear; }
+    .container .searchbox:hover {
+      max-width: 300px; }
+      .container .searchbox:hover .searchbox__input {
+        background-color: #FFF;
+        padding-right: 50px;
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
+      .container .searchbox:hover .searchbox__icon path {
+        fill: #24233A; }
+  .container .clock {
+    position: absolute;
+    top: 19%;
+    left: 10%;
+    display: block;
+    width: 100%;
+    max-width: 53px;
+    transition: 0.4s linear;
+    overflow: hidden;
+    z-index: 2; }
+    .container .clock .clock__input {
+      display: block;
+      appearance: none;
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 50px;
+      background-color: #24233A;
+      padding: 15px;
+      color: #24233A;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.4s linear; }
+      .container .clock .clock__input::placeholder {
+        color: #24233A; }
+    .container .clock .clock__icon {
+      position: absolute;
+      right: calc(53px / 2);
+      top: 50%;
+      transform: translate(50%, -50%);
+      width: 20px;
+      height: 20px;
+      pointer-events: none; }
+      .container .clock .clock__icon path {
+        fill: #00F494;
+        transition: 0.4s linear; }
+    .container .clock:hover {
+      max-width: 140px; }
+      .container .clock:hover .clock__input {
+        background-color: #FFF;
+        padding-right: 50px;
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
+      .container .clock:hover .clock__icon path {
+        fill: #24233A; }
 
-
-}
+/*# sourceMappingURL=script.css.map */

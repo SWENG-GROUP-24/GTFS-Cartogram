@@ -1,0 +1,172 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #342D7E;
+	
+}
+
+.mapid {
+  
+  width: 800px;
+  height: 620px;
+  z-index: 1;
+}
+
+.container {
+	width: 20vw;
+	height: 20vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    
+	.searchbox {
+		position: absolute;
+		top: 10%;
+		left: 10%;
+		
+		display: block;
+		width: 100%;
+		max-width: 53px;
+		transition: 0.4s linear;
+		overflow: hidden;
+        z-index: 2;
+		.searchbox__input {
+			display: block;
+			appearance: none;
+			width: 100%;
+
+			border: none;
+			outline: none;
+			border-radius: 50px;
+
+			background-color: #24233A;
+			
+			padding: 15px;
+			color: #24233A;
+			font-size: 20px;
+			cursor: pointer;
+			transition: 0.4s linear;
+
+			&::placeholder {
+				color: #24233A;
+			}
+		}
+
+		.searchbox__icon {
+			position: absolute;
+			right: calc(53px / 2);
+			top: 50%;
+			transform: translate(50%, -50%);
+
+			width: 20px;
+			height: 20px;
+
+			pointer-events: none;
+
+			path {
+				fill: #00F494;
+				transition: 0.4s linear;
+			}
+		}
+
+		&:hover {
+			max-width: 300px;
+
+			.searchbox__input {
+				background-color: #FFF;
+				padding-right: 50px;
+				box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+			}
+
+			.searchbox__icon {
+				path {
+					fill: #24233A;
+				}
+			}
+		}
+
+		
+	}
+
+
+ 	.clock {
+	position: absolute;
+	top: 19%;
+	left: 10%;
+	
+	display: block;
+	width: 100%;
+	max-width: 53px;
+	transition: 0.4s linear;
+	overflow: hidden;
+    z-index: 2;
+		.clock__input {
+			display: block;
+			appearance: none;
+			width: 100%;
+
+			border: none;
+			outline: none;
+			border-radius: 50px;
+
+			background-color: #24233A;
+			
+			padding: 15px;
+			color: #24233A;
+			font-size: 14px;
+			cursor: pointer;
+			transition: 0.4s linear;
+
+			&::placeholder {
+				color: #24233A;
+			}
+		}
+
+		.clock__icon {
+			position: absolute;
+			right: calc(53px / 2);
+			top: 50%;
+			transform: translate(50%, -50%);
+
+			width: 20px;
+			height: 20px;
+
+			pointer-events: none;
+
+			path {
+				fill: #00F494;
+				transition: 0.4s linear;
+			}
+		}
+
+		&:hover {
+			max-width: 140px;
+
+			.clock__input {
+				background-color: #FFF;
+				padding-right: 50px;
+				box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+			}
+
+			.clock__icon {
+
+				path {
+					fill: #24233A;
+				}
+			}
+		}
+
+		
+	}
+
+
+
+
+
+
+}
