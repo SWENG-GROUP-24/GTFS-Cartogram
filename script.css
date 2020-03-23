@@ -7,15 +7,15 @@ body {
   background-color: #342D7E; }
 
 .mapid {
-  /*width: 800px;*/
-  /*height: 620px;*/
   height: 100%;
   width: 100%;
   z-index: 1; }
 
+
+
 .container {
-  width: 20vw;
-  height: 20vh;
+  /*width: 20vw;
+  height: 20vh;*/
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -41,7 +41,7 @@ body {
       color: #24233A;
       font-size: 20px;
       cursor: pointer;
-      transition: 0.4s linear; }
+      transition: 0.3s linear; }
       .container .searchbox .searchbox__input::placeholder {
         color: #24233A; }
     .container .searchbox .searchbox__icon {
@@ -54,14 +54,14 @@ body {
       pointer-events: none; }
       .container .searchbox .searchbox__icon path {
         fill: #00F494;
-        transition: 0.4s linear; }
-    .container .searchbox:hover {
+        transition: 0.3s linear; }
+    .container .searchbox:focus-within {
       max-width: 300px; }
-      .container .searchbox:hover .searchbox__input {
+      .container .searchbox:focus-within .searchbox__input {
         background-color: #FFF;
         padding-right: 50px;
         box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
-      .container .searchbox:hover .searchbox__icon path {
+      .container .searchbox:focus-within .searchbox__icon path {
         fill: #24233A; }
   .container .clock {
     position: absolute;
@@ -99,13 +99,28 @@ body {
       .container .clock .clock__icon path {
         fill: #00F494;
         transition: 0.4s linear; }
-    .container .clock:hover {
+    .container .clock:focus-within {
       max-width: 140px; }
-      .container .clock:hover .clock__input {
+      .container .clock:focus-within .clock__input {
         background-color: #FFF;
         padding-right: 50px;
         box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
-      .container .clock:hover .clock__icon path {
+      .container .clock:focus-within .clock__icon path {
         fill: #24233A; }
 
-/*# sourceMappingURL=script.css.map */
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+# sourceMappingURL=script.css.map 
