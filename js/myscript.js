@@ -116,22 +116,22 @@ function getStationList() {
 
 var customIcon = L.icon({
 	
-	iconUrl: 'js/assets/images/circle.ico',
-    iconSize: [5, 5],
+	iconUrl: 'js/assets/images/original.png',
+    iconSize: [10, 10],
 	
 });
 
 var originIcon = L.icon({
 	
-	iconUrl: 'js/assets/images/circle.ico',
-    iconSize: [10, 10],
+	iconUrl: 'js/assets/images/original.png',
+    iconSize: [17, 21],
 	
 });
 
 var transformedIcon = L.icon({
 	
-	iconUrl: 'js/assets/images/transformed_circle.png',
-    iconSize: [5, 5],
+	iconUrl: 'js/assets/images/new.png',
+    iconSize: [10, 10],
 	
 });
 
