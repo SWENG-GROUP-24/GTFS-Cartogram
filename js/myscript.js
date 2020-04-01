@@ -1,8 +1,8 @@
 markers = [];
 mapbox_apikey = 'pk.eyJ1IjoiYm9idG9tODQ4MiIsImEiOiJjazZzMXh1YmEwYmJrM2ZtbHU1dm5pZW92In0.5070Es5hbrpyO-li0XagsA'; 
 thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
-stationNames = [];
-stationFreq = {};
+stationNames = [];	// list of station names for autocomplete
+stationFreq = {};	// for handling multiple stations with the same name
 terminalStation = false;
 var mymap;
 var myRenderer;
@@ -73,8 +73,12 @@ function submitButton() {
 	}
 }
 
+//	Takes a stop name and returns its ID for searching the database
 function stopNameToId(name) {
 
+	// 	If the stop is one with duplicate names
+	// 	we use the number after it to find it's ID 
+	// 	eg. Newry Stop 2 would be the 3rd ID associated with Newry
 	var splits = name.split("Stop");
 	if (splits.length == 2) { 
 		baseName = splits[0].trim();
@@ -83,8 +87,6 @@ function stopNameToId(name) {
 		baseName = name;
 		num = 0;
 	}
-	console.log(num);
-	console.log(baseName);
 
 	for (let i = 1; i < parsedCSV.data.length; i++) {
 		if (parsedCSV.data[i][1] == baseName) {
@@ -94,7 +96,6 @@ function stopNameToId(name) {
 				num = num - 1;
 			}
 		}
-		console.log(num);
 	}
 	return "nope";
 }
@@ -127,9 +128,15 @@ function insertDataList() {
 	});
 }
 
+
+// Make a list of the station names for Autocomplete
 function makeStationList() {
 	for (let i = 1; i < parsedCSV.data.length; i++) {
 		name = parsedCSV.data[i][1];
+
+		// Handle multiple stations with same name
+		// by assigning them a number so their ID 
+		// can be fetched correctly 
 		if (name in stationFreq) {
 			freq = stationFreq[name];
 			stationFreq[name] = freq + 1;
@@ -259,6 +266,10 @@ function getSampleData(stationId){
 		// url : "https://intense-basin-71843.herokuapp.com/data",		
 		success : function (data) {
 			document.getElementById("stationInput").value = "";
+
+			// Check the data returned
+			// If no data found then the stop is a terminal station
+			// and has no data to show 
 			if (data == "No Data Found (Check stop ID)") {
 				console.log("Terminal Station - No Data");
 				terminalStation = true;
