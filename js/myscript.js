@@ -1,7 +1,9 @@
 markers = [];
 mapbox_apikey = 'pk.eyJ1IjoiYm9idG9tODQ4MiIsImEiOiJjazZzMXh1YmEwYmJrM2ZtbHU1dm5pZW92In0.5070Es5hbrpyO-li0XagsA'; 
 thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
-stationNames = [];
+stationNames = [];	// list of station names for autocomplete
+stationFreq = {};	// for handling multiple stations with the same name
+terminalStation = false;
 var mymap;
 var myRenderer;
 var markersLayer;
@@ -71,10 +73,28 @@ function submitButton() {
 	}
 }
 
+//	Takes a stop name and returns its ID for searching the database
 function stopNameToId(name) {
+
+	// 	If the stop is one with duplicate names
+	// 	we use the number after it to find it's ID 
+	// 	eg. Newry Stop 2 would be the 3rd ID associated with Newry
+	var splits = name.split("Stop");
+	if (splits.length == 2) { 
+		baseName = splits[0].trim();
+		num = parseInt(splits[1]) - 1;
+	} else {
+		baseName = name;
+		num = 0;
+	}
+
 	for (let i = 1; i < parsedCSV.data.length; i++) {
-		if (parsedCSV.data[i][1] == name) {
-			return parsedCSV.data[i][0];
+		if (parsedCSV.data[i][1] == baseName) {
+			if (num == 0) {
+				return parsedCSV.data[i][0];
+			} else {
+				num = num - 1;
+			}
 		}
 	}
 	return "nope";
@@ -91,7 +111,7 @@ function getData() {
 
 function parseCSV(csv) {
 	parsedCSV = Papa.parse(csv);
-	getStationList();
+	makeStationList();
 	insertDataList();
 	console.log("parsed data");
 	// getSampleData(parsed);
@@ -108,9 +128,23 @@ function insertDataList() {
 	});
 }
 
-function getStationList() {
+
+// Make a list of the station names for Autocomplete
+function makeStationList() {
 	for (let i = 1; i < parsedCSV.data.length; i++) {
-		stationNames.push(parsedCSV.data[i][1]);
+		name = parsedCSV.data[i][1];
+
+		// Handle multiple stations with same name
+		// by assigning them a number so their ID 
+		// can be fetched correctly 
+		if (name in stationFreq) {
+			freq = stationFreq[name];
+			stationFreq[name] = freq + 1;
+			stationNames.push(name+" Stop " + (freq + 1));
+		} else {
+			stationNames.push(name);
+			stationFreq[name] = 1;
+		}
 	}
 }
 
@@ -233,6 +267,15 @@ function getSampleData(stationId){
 		success : function (data) {
 			document.getElementById("stationInput").value = "";
 
+			// Check the data returned
+			// If no data found then the stop is a terminal station
+			// and has no data to show 
+			if (data == "No Data Found (Check stop ID)") {
+				console.log("Terminal Station - No Data");
+				terminalStation = true;
+			} else{
+				terminalStation = false;
+			}
 			sample(data, parsedCSV);
 		}
 	});
