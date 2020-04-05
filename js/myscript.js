@@ -217,10 +217,25 @@ function plotPoints(csv) {
 	}
 }
 
+// function plotPoint(lat, long, title){
+	
+// 		let coord = L.latLng(lat,long);
+// 		let marker = new L.marker(coord, {
+// 			icon: customIcon, 
+// 			title: title
+// 		});
+// 		marker.bindPopup(title);
+// 		// markers.push(marker);
+// 		markersLayer.addLayer(marker);
+	
+// }
+
 function plotPoint(lat, long, title){
 	
 		let coord = L.latLng(lat,long);
-		let marker = new L.marker(coord, {
+		let marker = new L.circleMarker(coord, {
+			radius: 3,
+			color: '#ff3832',
 			icon: customIcon, 
 			title: title
 		});
@@ -230,10 +245,25 @@ function plotPoint(lat, long, title){
 	
 }
 
+// function plotTransformedPoint(lat, long, title){
+// 		title = "New: " + title
+// 		let coord = L.latLng(lat,long);
+// 		let marker = new L.marker(coord, {
+// 			icon: transformedIcon, 
+// 			title: title
+// 		});
+// 		marker.bindPopup(title);
+// 		// markers.push(marker);
+// 		markersLayer.addLayer(marker);
+	
+// }
+
 function plotTransformedPoint(lat, long, title){
 		title = "New: " + title
 		let coord = L.latLng(lat,long);
-		let marker = new L.marker(coord, {
+		let marker = new L.circleMarker(coord, {
+			radius: 3,
+			color: '#7effb2',
 			icon: transformedIcon, 
 			title: title
 		});
@@ -243,10 +273,25 @@ function plotTransformedPoint(lat, long, title){
 	
 }
 
+// function plotOrigin(lat, long, title){
+	
+// 	let coord = L.latLng(lat,long);
+// 		let marker = new L.marker(coord, {
+// 			icon: originIcon, 
+// 			title: title
+// 		});
+// 		marker.bindPopup(title);
+// 		// markers.push(marker);
+// 		markersLayer.addLayer(marker);
+	
+// }
+
 function plotOrigin(lat, long, title){
 	
 	let coord = L.latLng(lat,long);
-		let marker = new L.marker(coord, {
+		let marker = new L.circleMarker(coord, {
+			radius: 8,
+			color: 'white',
 			icon: originIcon, 
 			title: title
 		});
