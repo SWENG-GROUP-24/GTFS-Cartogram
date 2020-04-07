@@ -223,28 +223,87 @@ function plotPoints(csv) {
 		// }).addTo(mymap).bindPopup(csv.data[i][1]);
 	}
 }
+// function plotPoint(lat, long, title){
+	
+// 		let coord = L.latLng(lat,long);
+// 		let marker = new L.marker(coord, {
+// 			icon: customIcon, 
+// 			title: title
+// 		});
+// 		marker.bindPopup(title);
+// 		// markers.push(marker);
+// 		markersLayer.addLayer(marker);
+	
+// }
 
-function plotPoint(lat, long, title) {
-	let coord = L.latLng(lat, long);
-	let marker = new L.marker(coord, {
-		icon: customIcon,
-		title: title
-	});
-	marker.bindPopup(title);
-	// markers.push(marker);
-	markersLayer.addLayer(marker);
+function plotPoint(lat, long, title){
+	
+		let coord = L.latLng(lat,long);
+		let marker = new L.circleMarker(coord, {
+			radius: 3,
+			color: '#ff3832',
+			icon: customIcon, 
+			title: title
+		});
+		marker.bindPopup(title);
+		// markers.push(marker);
+		markersLayer.addLayer(marker);
+	
 }
 
-function plotTransformedPoint(lat, long, title) {
-	title = "New: " + title
-	let coord = L.latLng(lat, long);
-	let marker = new L.marker(coord, {
-		icon: transformedIcon,
-		title: title
-	});
-	marker.bindPopup(title);
-	// markers.push(marker);
-	markersLayer.addLayer(marker);
+// function plotTransformedPoint(lat, long, title){
+// 		title = "New: " + title
+// 		let coord = L.latLng(lat,long);
+// 		let marker = new L.marker(coord, {
+// 			icon: transformedIcon, 
+// 			title: title
+// 		});
+// 		marker.bindPopup(title);
+// 		// markers.push(marker);
+// 		markersLayer.addLayer(marker);
+	
+// }
+
+function plotTransformedPoint(lat, long, title){
+		title = "New: " + title
+		let coord = L.latLng(lat,long);
+		let marker = new L.circleMarker(coord, {
+			radius: 3,
+			color: '#7effb2',
+			icon: transformedIcon, 
+			title: title
+		});
+		marker.bindPopup(title);
+		// markers.push(marker);
+		markersLayer.addLayer(marker);
+	
+}
+
+// function plotOrigin(lat, long, title){
+	
+// 	let coord = L.latLng(lat,long);
+// 		let marker = new L.marker(coord, {
+// 			icon: originIcon, 
+// 			title: title
+// 		});
+// 		marker.bindPopup(title);
+// 		// markers.push(marker);
+// 		markersLayer.addLayer(marker);
+	
+// }
+
+function plotOrigin(lat, long, title){
+	
+	let coord = L.latLng(lat,long);
+		let marker = new L.circleMarker(coord, {
+			radius: 8,
+			color: 'white',
+			icon: originIcon, 
+			title: title
+		});
+		marker.bindPopup(title);
+		// markers.push(marker);
+		markersLayer.addLayer(marker);
 }
 
 //drawing the line on the map
@@ -266,16 +325,6 @@ function plotTransformedPoint(lat, long, title) {
 // 	var polyline = L.polyline(polylinePoints, { color: '#00ccff', weight: 3 }).addTo(mymap);	
 // }
 
-function plotOrigin(lat, long, title) {
-	let coord = L.latLng(lat, long);
-	let marker = new L.marker(coord, {
-		icon: originIcon,
-		title: title
-	});
-	marker.bindPopup(title);
-	// markers.push(marker);
-	markersLayer.addLayer(marker);
-}
 
 function getSampleData(stationId) {
 	// the sample input data located at https://intense-basin-71843.herokuapp.com/data
