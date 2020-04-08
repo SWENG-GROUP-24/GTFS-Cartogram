@@ -16,6 +16,7 @@ terminalStation = false; // if selected station is a terminal station (where no 
 var mymap;
 var myRenderer;
 var markersLayer;
+var lastSearch = "";
 //var linesLayer;
 
 var parsedCSV;
@@ -63,7 +64,13 @@ function makeMap() {
 // The entire search bar currently acts as a button
 function onInput() {
 	var val = document.getElementById("stationInput").value;
+
 	var opts = document.getElementById("stationNames").childNodes;
+	if (val != "") {
+		lastSearch = val;
+		// console.log(lastSearch);
+	}
+
 	for (var i = 0; i < opts.length; i++) {
 		if (opts[i].value === val) {
 			submitButton();
@@ -77,13 +84,14 @@ function submitButton() {
 	var stationId = stopNameToId(stationName);
 	console.log(stationId);
 	var time = document.getElementById("timeInput").value;
-	// ONly search if station name is valid
+	// Only search if station name is valid
 	if (stationId != "") {
+
 		removeMarkers();
 		getSampleData(stationId);
 
 		//zoom out to its original position when user changes the station
-		mymap.setView(centres.ireland, zooms.ireland);
+		// mymap.setView(centres.ireland, zooms.ireland);
 		//removeLines(stationId);
 	}
 }
@@ -270,7 +278,8 @@ function getSampleData(stationId) {
 	// the sample input data located at https://intense-basin-71843.herokuapp.com/data
 	// was converted from a json to a csv, and is then loaded into 'sampleData' as seen below
 	$.ajax({
-		url: "https://intense-basin-71843.herokuapp.com/data?id=" + stationId,		
+		// url: "https://intense-basin-71843.herokuapp.com/data?id=" + stationId,
+		url: "https://eu-cartomaps.herokuapp.com/data?id=" + stationId,		
 		success: function (data) {
 			document.getElementById("stationInput").value = "";
 			// Check the data returned
@@ -279,6 +288,7 @@ function getSampleData(stationId) {
 			if (data == "No Data Found (Check stop ID)") {
 				console.log("Terminal Station - No Data");
 				terminalStation = true;
+				mymap.setView(centres.ireland, zooms.ireland);
 			} else {
 				terminalStation = false;
 			}
@@ -342,10 +352,6 @@ function sample(sampleData, csv) {
 				transformedPoint = lineDividing(originX, originY, destinationX, destinationY, 1, timeDifference / 75);
 				plotTransformedPoint(transformedPoint.p1, transformedPoint.p2, csv.data[j][1]);
 
-				//added automatically zooming in to the origin station
-				var latLon = L.latLng(originX, originY);
-				var bounds = latLon.toBounds(50000); 
-				mymap.panTo(latLon).fitBounds(bounds);
 
 				// adds station to array so that no duplicates appear
 				transformedPoints.push(sampleData.data[i].destination_station_id);
@@ -366,6 +372,10 @@ function sample(sampleData, csv) {
 			}
 		}
 	}
+	//added automatically zooming in to the origin station
+	var latLon = L.latLng(originX, originY);
+	var bounds = latLon.toBounds(50000); 
+	mymap.panTo(latLon).fitBounds(bounds);
 }
 
 transformedPoints = [];
