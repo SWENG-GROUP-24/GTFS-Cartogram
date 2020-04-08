@@ -1,13 +1,23 @@
+/*
+** Global variables
+*/ 
+
 markers = [];
 mapbox_apikey = 'pk.eyJ1IjoiYm9idG9tODQ4MiIsImEiOiJjazZzMXh1YmEwYmJrM2ZtbHU1dm5pZW92In0.5070Es5hbrpyO-li0XagsA';
 thunderforest_apikey = '030ae5a7c98549079b98e1a051b27cb7';
 stationNames = [];	// list of station names for autocomplete
-stationFreq = {};	// for handling multiple stations with the same name
-terminalStation = false;
+stationFreq = {};	// dict for handling multiple stations with the same name
+terminalStation = false; // if selected station is a terminal station (where no data will be returned)
+
+/*
+** Leaflet map variables
+*/
+
 var mymap;
 var myRenderer;
 var markersLayer;
 //var linesLayer;
+
 var parsedCSV;
 var centres = {
 	ireland: [53.5, -7.9],
@@ -23,6 +33,8 @@ function start() {
 	makeMap();
 }
 
+
+// Create the main map layer
 function makeMap() {
 	mymap = L.map('mapid').setView(centres.ireland, zooms.ireland);
 
@@ -35,6 +47,7 @@ function makeMap() {
 
 	myRenderer = L.canvas({ padding: 0.5 });
 
+	// layer for holding the station markers
 	markersLayer = new L.LayerGroup();
 	mymap.addLayer(markersLayer);
 
@@ -42,19 +55,12 @@ function makeMap() {
 	//linesLayer = new L.LayerGroup();	
 	//mymap.addLayer(linesLayer);
 
-	var controlSearch = new L.Control.Search({
-		position: 'topright',
-		layer: markersLayer,
-		//layer1: linesLayer,	//line layer
-		initial: false,
-		zoom: 12,
-		marker: false
-		//polyline: false
-	});
-	mymap.addControl(controlSearch);
 	getData();
 }
 
+
+// Onclick function for search button
+// The entire search bar currently acts as a button
 function onInput() {
 	var val = document.getElementById("stationInput").value;
 	var opts = document.getElementById("stationNames").childNodes;
@@ -71,12 +77,13 @@ function submitButton() {
 	var stationId = stopNameToId(stationName);
 	console.log(stationId);
 	var time = document.getElementById("timeInput").value;
+	// ONly search if station name is valid
 	if (stationId != "") {
-		removeMarkers(stationId);
+		removeMarkers();
+		getSampleData(stationId);
 
 		//zoom out to its original position when user changes the station
 		mymap.setView(centres.ireland, zooms.ireland);
-		//mymap.setView(centres.switzerland, zooms.switzerland);
 		//removeLines(stationId);
 	}
 }
@@ -95,6 +102,7 @@ function stopNameToId(name) {
 		num = 0;
 	}
 
+	// i = 1 as first line is metadata
 	for (let i = 1; i < parsedCSV.data.length; i++) {
 		if (parsedCSV.data[i][1] == baseName) {
 			if (num == 0) {
@@ -107,9 +115,11 @@ function stopNameToId(name) {
 	return "nope";
 }
 
+
+// gets stop data hosted on Github
 function getData() {
 	$.ajax({
-		url: "https://raw.githubusercontent.com/SWENG-GROUP-24/GTFS-Cartogram/darragh/js/assets/trains/stops.txt",
+		url: "https://raw.githubusercontent.com/SWENG-GROUP-24/GTFS-Cartogram/master/Backend/gtfs_data/stops.txt",
 		success: function (data) {
 			parseCSV(data);
 		}
@@ -117,15 +127,16 @@ function getData() {
 }
 
 function parseCSV(csv) {
+	// Parse the stop data and create autocomplete entries
 	parsedCSV = Papa.parse(csv);
 	makeStationList();
 	insertDataList();
 	console.log("parsed data");
-	// getSampleData(parsed);
-	//createMarkers(parsed);
-	// plotPoints(parsed);
+
 }
 
+
+// Populate the autocomplete data list
 function insertDataList() {
 	var list = document.getElementById('stationNames');
 	stationNames.forEach(function (item) {
@@ -153,49 +164,16 @@ function makeStationList() {
 	}
 }
 
-var customIcon = L.icon({
-	iconUrl: 'js/assets/images/original.png',
-	iconSize: [12, 15],
-});
+// Remove markers from map
+// and fetch the next station ID to ensure 
+// markers are removed before more are added 
+function removeMarkers() {
 
-var originIcon = L.icon({
-	iconUrl: 'js/assets/images/original.png',
-	iconSize: [19, 23],
-});
-
-var transformedIcon = L.icon({
-	iconUrl: 'js/assets/images/new.png',
-	iconSize: [12, 15],
-});
-
-function createMarkers(csv) {
-	for (let i = 1; i < csv.data.length - 1; i++) {
-		let lat = csv.data[i][2];
-		let long = csv.data[i][3];
-		console.log(lat, long);
-		let title = csv.data[i][1];
-		let coord = L.latLng(lat, long);
-		let marker = new L.marker(coord, {
-			icon: customIcon,
-			title: title
-		});
-		marker.bindPopup(csv.data[i][1]);
-		// markers.push(marker);
-		markersLayer.addLayer(marker);
-		// marker.addTo(mymap);
-	}
-}
-
-function removeMarkers(stationId) {
-	// for(let i = 0; i < markers.length; i++){
-	// 	markersLayer.removeLayer(markers[i]);
-	// 	// markers.splice(i,1);	
-	// }
 	markersLayer.eachLayer(function (layer) {
 		markersLayer.removeLayer(layer);
 	});
 	transformedPoints = [];
-	getSampleData(stationId);
+	// getSampleData(stationId);
 }
 
 //removing the lines when user change the station
@@ -223,18 +201,7 @@ function plotPoints(csv) {
 		// }).addTo(mymap).bindPopup(csv.data[i][1]);
 	}
 }
-// function plotPoint(lat, long, title){
-	
-// 		let coord = L.latLng(lat,long);
-// 		let marker = new L.marker(coord, {
-// 			icon: customIcon, 
-// 			title: title
-// 		});
-// 		marker.bindPopup(title);
-// 		// markers.push(marker);
-// 		markersLayer.addLayer(marker);
-	
-// }
+
 
 function plotPoint(lat, long, title){
 	
@@ -242,7 +209,6 @@ function plotPoint(lat, long, title){
 		let marker = new L.circleMarker(coord, {
 			radius: 3,
 			color: '#ff3832',
-			icon: customIcon, 
 			title: title
 		});
 		marker.bindPopup(title);
@@ -251,18 +217,6 @@ function plotPoint(lat, long, title){
 	
 }
 
-// function plotTransformedPoint(lat, long, title){
-// 		title = "New: " + title
-// 		let coord = L.latLng(lat,long);
-// 		let marker = new L.marker(coord, {
-// 			icon: transformedIcon, 
-// 			title: title
-// 		});
-// 		marker.bindPopup(title);
-// 		// markers.push(marker);
-// 		markersLayer.addLayer(marker);
-	
-// }
 
 function plotTransformedPoint(lat, long, title){
 		title = "New: " + title
@@ -270,7 +224,6 @@ function plotTransformedPoint(lat, long, title){
 		let marker = new L.circleMarker(coord, {
 			radius: 3,
 			color: '#7effb2',
-			icon: transformedIcon, 
 			title: title
 		});
 		marker.bindPopup(title);
@@ -279,18 +232,6 @@ function plotTransformedPoint(lat, long, title){
 	
 }
 
-// function plotOrigin(lat, long, title){
-	
-// 	let coord = L.latLng(lat,long);
-// 		let marker = new L.marker(coord, {
-// 			icon: originIcon, 
-// 			title: title
-// 		});
-// 		marker.bindPopup(title);
-// 		// markers.push(marker);
-// 		markersLayer.addLayer(marker);
-	
-// }
 
 function plotOrigin(lat, long, title){
 	
@@ -298,7 +239,6 @@ function plotOrigin(lat, long, title){
 		let marker = new L.circleMarker(coord, {
 			radius: 8,
 			color: 'white',
-			icon: originIcon, 
 			title: title
 		});
 		marker.bindPopup(title);
@@ -330,8 +270,7 @@ function getSampleData(stationId) {
 	// the sample input data located at https://intense-basin-71843.herokuapp.com/data
 	// was converted from a json to a csv, and is then loaded into 'sampleData' as seen below
 	$.ajax({
-		url: "https://intense-basin-71843.herokuapp.com/data?id=" + stationId,
-		// url : "https://intense-basin-71843.herokuapp.com/data",		
+		url: "https://intense-basin-71843.herokuapp.com/data?id=" + stationId,		
 		success: function (data) {
 			document.getElementById("stationInput").value = "";
 			// Check the data returned
@@ -422,7 +361,7 @@ function sample(sampleData, csv) {
 					Long: p2,
 					Station: Station,
 				}
-				console.log(newTransformed);
+				// console.log(newTransformed);
 				//L.polyline(newTransformed).addTo(mymap);
 			}
 		}
