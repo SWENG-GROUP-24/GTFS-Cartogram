@@ -220,6 +220,12 @@ function plotPoint(lat, long, title){
 			title: title
 		});
 		marker.bindPopup(title);
+		marker.on('mouseover', function (e) {
+			this.openPopup();
+		});
+		marker.on('mouseout', function (e) {
+			this.closePopup();
+		});
 		// markers.push(marker);
 		markersLayer.addLayer(marker);
 	
@@ -235,6 +241,12 @@ function plotTransformedPoint(lat, long, title){
 			title: title
 		});
 		marker.bindPopup(title);
+		marker.on('mouseover', function (e) {
+			this.openPopup();
+		});
+		marker.on('mouseout', function (e) {
+			this.closePopup();
+		});
 		// markers.push(marker);
 		markersLayer.addLayer(marker);
 	
@@ -250,6 +262,12 @@ function plotOrigin(lat, long, title){
 			title: title
 		});
 		marker.bindPopup(title);
+		marker.on('mouseover', function (e) {
+			this.openPopup();
+		});
+		marker.on('mouseout', function (e) {
+			this.closePopup();
+		});
 		// markers.push(marker);
 		markersLayer.addLayer(marker);
 }
