@@ -5,7 +5,7 @@
 }
 
 body {
-	background-color: #342D7E;
+	background-color: #342D7E;  //dark blue
 	
 }
 
@@ -13,110 +13,84 @@ body {
   
   width: 800px;
   height: 620px;
-  z-index: 1;
+  z-index: 1;                      //specifies the stack order of an element, map id is the first layer
 }
 
-.container {
+.container {                       //this contains the searchbox and the clock elements    
 	width: 20vw;
 	height: 20vh;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: flex;              //container size is flexible
+	justify-content: center;    //centers the contents(search box and clock) within the container
+	align-items: center;        // align contents vertically
     
 	.searchbox {
-		position: absolute;
-		top: 10%;
+		position: absolute;  // searchbox positioned relative to the container position
+		top: 10%;      
 		left: 10%;
 		
-		display: block;
-		width: 100%;
-		max-width: 53px;
-		transition: 0.4s linear;
-		overflow: hidden;
-        z-index: 2;
+		display: block;             //display takes full width of the "searchbox"
+		width: 100%;        
+		max-width: 53px;           
+		transition: 0.4s linear;   
+		overflow: hidden;          //hides extra chars when input doesnt fit in the searchbox
+                z-index: 2;                //specifies the stack order of an element, search box is 2nd layer
+		
 		.searchbox__input {
-			display: block;
-			appearance: none;
+			display: block;    //display takes full width of the "searchbox__input"
+			appearance: none;  // removes any default styling
 			width: 100%;
 
-			border: none;
+			border: none;       
 			outline: none;
-			border-radius: 50px;
+			border-radius: 50px; //roundness of border
 
-			background-color: #24233A;
+			background-color: #24233A;  //navy
 			
-			padding: 15px;
-			color: #24233A;
+			padding: 15px;         //space between text and border
+			color: #24233A;        //text colour: navy
 			font-size: 20px;
-			cursor: pointer;
-			transition: 0.4s linear;
+			cursor: pointer;       //allows for cursor to click 
+			transition: 0.4s linear; 
 
 			&::placeholder {
-				color: #24233A;
+				color: #24233A; //speed that searchbox widens at
 			}
 		}
 
-		
-        
 		.searchbox__icon {
-			position: absolute;
-			right: calc(53px / 2);
+			position: absolute;       // searchbox positioned relative to the container position
+			right: calc(53px / 2);    //centers icon
 			top: 50%;
-			transform: translate(50%, -50%);
+			transform: translate(50%, -50%); //moves icon when you hover
 
 			width: 20px;
 			height: 20px;
 
 			pointer-events: none;
 
-			path {
-				fill: #00F494;
-				transition: 0.4s linear;
+			path {              
+				fill: #00F494;       //mint green
+				transition: 0.4s linear; //speed for animation
 			}
 		}
 
-		&:hover {
-			max-width: 300px;
+		&:hover {                  //when you hover
+			max-width: 300px;  //searchbox widens to 300px
 
 			.searchbox__input {
-				background-color: #FFF;
-				padding-right: 50px;
-				box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+				background-color: #FFF;  //white
+				padding-right: 50px;     //to ensure text doesn't go over/behind the search icon
+				box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); //slight box shadow
 			}
 
 			.searchbox__icon {
 				path {
-					fill: #24233A;
+					fill: #24233A;    //navy 
 				}
 			}
 		}
 
-		.loader {
-		  position: absolute;
-		  right: calc(25px / 2);
-		  top: 25%;
-		  transform: translate(50%, -50%);
-		  border: 4px solid #f3f3f3;
-		  border-radius: 50%;
-		  border-top: 4px solid #00F494;
-		  width: 30px;
-		  height: 30px;
-		  -webkit-animation: spin 2s linear infinite; /* Safari */
-		  animation: spin 2s linear infinite;
-		}
-        @-webkit-keyframes spin {
-		  0% { -webkit-transform: rotate(0deg); }
-		  100% { -webkit-transform: rotate(360deg); }
-		}
-
-		@keyframes spin {
-		  0% { transform: rotate(0deg); }
-		  100% { transform: rotate(360deg); }
-		}
-        .empty{
-
-        }
 		
 	}
 
@@ -131,7 +105,7 @@ body {
 	max-width: 53px;
 	transition: 0.4s linear;
 	overflow: hidden;
-    z-index: 2;
+        z-index: 2;
 		.clock__input {
 			display: block;
 			appearance: none;
@@ -141,7 +115,7 @@ body {
 			outline: none;
 			border-radius: 50px;
 
-			background-color: #24233A;
+			background-color: #24233A; //navy
 			
 			padding: 15px;
 			color: #24233A;
@@ -158,15 +132,15 @@ body {
 			position: absolute;
 			right: calc(53px / 2);
 			top: 50%;
-			transform: translate(50%, -50%);
+			transform: translate(50%, -50%); //moves clock icon when box widens or shrinks
 
 			width: 20px;
 			height: 20px;
 
-			pointer-events: none;
+			pointer-events: none; 
 
 			path {
-				fill: #00F494;
+				fill: #00F494;     //mint green
 				transition: 0.4s linear;
 			}
 		}
@@ -175,7 +149,7 @@ body {
 			max-width: 140px;
 
 			.clock__input {
-				background-color: #FFF;
+				background-color: #FFF;   //white
 				padding-right: 50px;
 				box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
 			}
@@ -183,7 +157,7 @@ body {
 			.clock__icon {
 
 				path {
-					fill: #24233A;
+					fill: #24233A;  //navy
 				}
 			}
 		}
