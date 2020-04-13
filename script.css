@@ -63,6 +63,30 @@ body {
         box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
       .container .searchbox:focus-within .searchbox__icon path {
         fill: #24233A; }
+      .container .searchbox .loader {
+        position: absolute;
+      right: calc(25px / 2);
+      top: 25%;
+      transform: translate(50%, -50%);
+      border: 3px solid #030303;
+      border-radius: 50%;
+      border-top: 3px solid #00F494;
+      width: 30px;
+      height: 30px;
+      -webkit-animation: spin 2s linear infinite;
+      /* Safari */
+      animation: spin 2s linear infinite; 
+      }
+      @-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
   .container .clock {
     position: absolute;
     top: 19%;
@@ -123,4 +147,4 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-# sourceMappingURL=script.css.map 
+/*# sourceMappingURL=script.css.map */
