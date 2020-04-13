@@ -11,19 +11,17 @@ body {
 
 .mapid {
   
-  width: 800px;
-  height: 620px;
+  width: 100%;
+  height: 100%;
   z-index: 1;                      //specifies the stack order of an element, map id is the first layer
 }
 
 .container {                       //this contains the searchbox and the clock elements    
-	width: 20vw;
-	height: 20vh;
 
 	display: flex;              //container size is flexible
 	justify-content: center;    //centers the contents(search box and clock) within the container
 	align-items: center;        // align contents vertically
-    
+	
 	.searchbox {
 		position: absolute;  // searchbox positioned relative to the container position
 		top: 10%;      
@@ -34,7 +32,7 @@ body {
 		max-width: 53px;           
 		transition: 0.4s linear;   
 		overflow: hidden;          //hides extra chars when input doesnt fit in the searchbox
-                z-index: 2;                //specifies the stack order of an element, search box is 2nd layer
+				z-index: 2;                //specifies the stack order of an element, search box is 2nd layer
 		
 		.searchbox__input {
 			display: block;    //display takes full width of the "searchbox__input"
@@ -51,7 +49,7 @@ body {
 			color: #24233A;        //text colour: navy
 			font-size: 20px;
 			cursor: pointer;       //allows for cursor to click 
-			transition: 0.4s linear; 
+			transition: 0.3s linear; 
 
 			&::placeholder {
 				color: #24233A; //speed that searchbox widens at
@@ -71,11 +69,11 @@ body {
 
 			path {              
 				fill: #00F494;       //mint green
-				transition: 0.4s linear; //speed for animation
+				transition: 0.3s linear; //speed for animation
 			}
 		}
 
-		&:hover {                  //when you hover
+		&:focus-within {                  //when you hover
 			max-width: 300px;  //searchbox widens to 300px
 
 			.searchbox__input {
@@ -89,13 +87,27 @@ body {
 					fill: #24233A;    //navy 
 				}
 			}
+			.loader
+			position: absolute
+			right: calc(25px / 2)
+			top: 25%
+			transform: translate(50%, -50%)
+			border: 3px solid #030303
+			border-radius: 50%
+			border-top: 3px solid #00F494
+			width: 30px
+			height: 30px
+			-webkit-animation: spin 2s linear infinite
+
+			/* Safari
+			animation: spin 2s linear infinite
 		}
 
 		
 	}
 
 
- 	.clock {
+	.clock {
 	position: absolute;
 	top: 19%;
 	left: 10%;
@@ -105,7 +117,7 @@ body {
 	max-width: 53px;
 	transition: 0.4s linear;
 	overflow: hidden;
-        z-index: 2;
+		z-index: 2;
 		.clock__input {
 			display: block;
 			appearance: none;
@@ -145,7 +157,7 @@ body {
 			}
 		}
 
-		&:hover {
+		&:focus-within {
 			max-width: 140px;
 
 			.clock__input {
@@ -164,7 +176,34 @@ body {
 
 		
 	}
+@-webkit-keyframes spin
+  0%
+    -webkit-transform: rotate(0deg)
 
+  100%
+    -webkit-transform: rotate(360deg)
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)
+
+input
+  &::-webkit-calendar-picker-indicator
+    display: none
+
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+  &[type=number]
+    -moz-appearance: textfield
+
+/* Firefox
+
+/*# sourceMappingURL=script.css.map
 
 
 

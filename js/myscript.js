@@ -80,6 +80,9 @@ function onInput() {
 }
 
 function submitButton() {
+	// Show the loading animation
+	document.getElementById("demo").className = "loader";
+
 	var stationName = document.getElementById("stationInput").value;
 	var stationId = stopNameToId(stationName);
 	console.log(stationId);
@@ -300,6 +303,9 @@ function getSampleData(stationId) {
 		url: "https://eu-cartomaps.herokuapp.com/data?id=" + stationId,		
 		success: function (data) {
 			document.getElementById("stationInput").value = "";
+			
+			// hide loading animation
+			document.getElementById("demo").className = "empty";
 			// Check the data returned
 			// If no data found then the stop is a terminal station
 			// and has no data to show 
