@@ -342,38 +342,37 @@ function sample(sampleData, csv) {
 			}
 		}
 	}
+	
+	// calculuates the average time between trips for this specific origin station, this is outside of the loop because it only needs to be run once
+	time_a=calculateAverageTime(sampleData, csv);
+	
 	//plots transformed points
 	for (let i = 1; i < sampleData.data.length; i++) {
 		for (let j = 1; j < csv.data.length; j++) {
-			if (sampleData.data[i].destination_station_id == csv.data[j][0] && !isDuplicate(sampleData.data[i].destination_station_id)) {
+			
+			
+			if (sampleData.data[i].destination_station_id == csv.data[j][0] && !isDuplicate(sampleData.data[i].destination_station_id) && trainHasNotLeft(sampleData.data[i].departure_time)) {
 
 				destinationX = csv.data[j][2];
 				destinationY = csv.data[j][3];
 
-				// calculates time between origin and destination stations
-				timeDifference = time_diff(sampleData.data[i].departure_time, sampleData.data[i].arrival_time);
 
-				// finds a new point on the same line between the origin and destination, but further past the destination
-
-				/*
-				var dest_x=Number(destinationX);
-				var dest_y=Number(destinationY);
-				distance=Math.sqrt(((dest_x-originX)*(dest_x-originX)) + ((dest_y-originY)*(dest_y-originY)));
+				//performs the calculation using the formula (time_i/time_a)*(distance_a/distance_i)=displacement factor
+				// the average distance (distance_a) was previously calculated and is a constant
 				
-				ratio=1;
-				while(distance < 0.3){
-					
-					extendedPoint = lineDividing(originX, originY, dest_x, dest_y, ratio, 1);
-					dest_x=extendedPoint.p1;
-					dest_y=extendedPoint.p2;
-					ratio-=0.0001;
-					
-					distance = Math.sqrt(((dest_x-originX)*(dest_x-originX)) + ((dest_y-originY)*(dest_y-originY)));	
-				}
-				*/
+				distance_a=52.255713942272905;
+				
+				distance_i=calculateDistance(originX, originY, destinationX, destinationY);
+				
+				// calculates time between origin and destination station, and adds time from current time to time of departure
+				time_i=time_diff(sampleData.data[i].departure_time, sampleData.data[i].arrival_time);
+				
+				
+				
+				displacementFactor=(time_i/time_a)*(distance_a/distance_i);
 
 				// calculates position of new point
-				transformedPoint = lineDividing(originX, originY, destinationX, destinationY, 1, timeDifference / 75);
+				transformedPoint = lineDividing(originX, originY, destinationX, destinationY, 1, displacementFactor);
 				plotTransformedPoint(transformedPoint.p1, transformedPoint.p2, csv.data[j][1]);
 
 
@@ -413,6 +412,56 @@ function isDuplicate(station_id) {
 	return false;
 }
 
+function trainHasNotLeft(timeOfDeparture){
+	
+	timeOfDeparture=timeOfDeparture.split(":");
+	var current=Date.now();
+	var departureTime=new Date();
+	var departureTime=departureTime.setHours(Number(timeOfDeparture[0], Number(timeOfDeparture[1])));
+
+	console.log(current);
+	console.log(departureTime);
+	
+	if(Number(current)<Number(departureTime)){
+		return true;
+	} else return false;
+	
+	return false;
+	
+}
+
+function calculateAverageTime(sampleData, csv){
+	
+	accumulatedTime=0;
+	
+	for (let i= 1; i < csv.data.length; i++) {
+		
+		accumulatedTime+=time_diff(sampleData.data[i].departure_time, sampleData.data[i].arrival_time);
+		
+	}
+	
+	return (accumulatedTime/csv.data.length);
+	
+}
+
+function calculateDistance (lat1, lon1, lat2, lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
 function time_diff(start, end) {
 	start = start.split(":");
 	end = end.split(":");
@@ -427,7 +476,21 @@ function time_diff(start, end) {
 	if (hours < 0) {
 		hours = hours + 24;
 	}
-	return (hours * 60 + minutes);
+	
+	timeFromDepartToArrive= (hours*60) + minutes;
+	currentTime=new Date();
+	var diff = currentTime.getTime() - startDate.getTime();
+	var hours = Math.floor(diff / 1000 / 60 / 60);
+	diff -= hours * 1000 * 60 * 60;
+	var minutes = Math.floor(diff / 1000 / 60);
+
+	// If using time pickers with 24 hours format, add the below line get exact hours
+	if (hours < 0) {
+		hours = hours + 24;
+	}
+	
+	
+	return (timeFromDepartToArrive+(hours * 60 + minutes));
 }
 
 /*
