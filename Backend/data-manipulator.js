@@ -99,7 +99,6 @@ function sort (processedData) {
   var temp;
   var count=0;
   for (key of Object.keys(processedData)) {
-    console.log(count);
     for(var i = 1; i<processedData[key].length; i++) {
       tempData = processedData[key][i];
       tempString = processedData[key][i].departure_time;
