@@ -1,36 +1,41 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box; 
+}
 
 body {
-  background-color: #342D7E; }
+  background-color: #342D7E; 
+}
 
 .mapid {
   height: 100%;
   width: 100%;
-  z-index: 1; }
+  z-index: 1;     /*specifies the stack order of an element, map id is the first layer*/
+}
+    
 
-
-
-.container {
+.container {      /*this contains the searchbox, information, submit and the clock elements*/
   /*width: 20vw;
   height: 20vh;*/
-  display: flex;
-  justify-content: center;
-  align-items: center; }
-  .container .searchbox {
-    position: absolute;
+  display: flex;              /*container size is flexible*/
+  justify-content: center;    /*centers the contents(search box and clock) within the container*/
+  align-items: center;        /*align contents vertically*/
+}
+
+.container .information{
+  position: absolute;
     top: 10%;
-    left: 10%;
+    left: 90%;
     display: block;
     width: 100%;
-    max-width: 53px;
-    transition: 0.4s linear;
+    max-width: 50px;
     overflow: hidden;
-    z-index: 2; }
-    .container .searchbox .searchbox__input {
-      display: block;
+    z-index: 2; 
+}
+
+  .container .information .information_button{
+    display: block;
       appearance: none;
       width: 100%;
       border: none;
@@ -39,30 +44,76 @@ body {
       background-color: #24233A;
       padding: 15px;
       color: #24233A;
+      font-size: 14px;
+      cursor: pointer
+  }
+
+    .container .information .information_icon{
+      position: absolute;
+      right: calc(53px / 2);
+      top: 50%;
+      transform: translate(50%, -50%);     /*moves clock icon when hovered over*/
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+      .container .information .information_icon path{
+        fill: #00F494;
+      }
+  
+
+  .container .searchbox {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    display: block;
+    width: 100%;
+    max-width: 53px;
+    transition: 0.4s linear;
+    overflow: hidden;     /*Hides characters that dont fit*/
+    z-index: 2; 
+  }
+    .container .searchbox .searchbox__input {
+      display: block;   /*display takes full width of the "searchbox__input"*/
+      appearance: none;
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 50px;
+      background-color: #24233A;
+      padding: 15px;  /*space between text and border*/
+      color: #24233A;
       font-size: 20px;
       cursor: pointer;
-      transition: 0.3s linear; }
+      transition: 0.3s linear; 
+    }
       .container .searchbox .searchbox__input::placeholder {
-        color: #24233A; }
+        color: #24233A; 
+      }
     .container .searchbox .searchbox__icon {
       position: absolute;
       right: calc(53px / 2);
       top: 50%;
-      transform: translate(50%, -50%);
+      transform: translate(50%, -50%);    /*moves icon when you hover*/
       width: 20px;
       height: 20px;
-      pointer-events: none; }
+      pointer-events: none; 
+    }
       .container .searchbox .searchbox__icon path {
         fill: #00F494;
-        transition: 0.3s linear; }
+        transition: 0.3s linear; 
+      }
     .container .searchbox:focus-within {
-      max-width: 300px; }
+      max-width: 300px;     /*widens search box when hovered over*/
+    }
       .container .searchbox:focus-within .searchbox__input {
         background-color: #FFF;
         padding-right: 50px;
-        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+       }
       .container .searchbox:focus-within .searchbox__icon path {
-        fill: #24233A; }
+        fill: #24233A; 
+      }
       .container .searchbox .loader {
         position: absolute;
       right: calc(25px / 2);
@@ -96,7 +147,8 @@ body {
     max-width: 53px;
     transition: 0.4s linear;
     overflow: hidden;
-    z-index: 2; }
+    z-index: 2; 
+  }
     .container .clock .clock__input {
       display: block;
       appearance: none;
@@ -109,29 +161,37 @@ body {
       color: #24233A;
       font-size: 14px;
       cursor: pointer;
-      transition: 0.4s linear; }
+      transition: 0.4s linear; 
+    }
       .container .clock .clock__input::placeholder {
-        color: #24233A; }
+        color: #24233A; 
+      }
     .container .clock .clock__icon {
       position: absolute;
       right: calc(53px / 2);
       top: 50%;
-      transform: translate(50%, -50%);
+      transform: translate(50%, -50%);     /*moves clock icon when hovered over*/
       width: 20px;
       height: 20px;
-      pointer-events: none; }
+      pointer-events: none;
+     }
       .container .clock .clock__icon path {
         fill: #00F494;
-        transition: 0.4s linear; }
+        transition: 0.4s linear;
+       }
     .container .clock:focus-within {
-      max-width: 140px; }
+      max-width: 140px; 
+    }
       .container .clock:focus-within .clock__input {
         background-color: #FFF;
         padding-right: 50px;
-        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4); }
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+       }
       .container .clock:focus-within .clock__icon path {
-        fill: #24233A; }
+        fill: #24233A; 
+      }
 
+      
 input::-webkit-calendar-picker-indicator {
   display: none;
 }
@@ -147,7 +207,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/*# sourceMappingURL=script.css.map */
+# sourceMappingURL=script.css.map
 
 
 /*Messagebox to display any information to the users*/
