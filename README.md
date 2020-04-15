@@ -2,6 +2,21 @@
 
 Github page : https://sweng-group-24.github.io/GTFS-Cartogram/
 
+**Pease read below for instructions of use**
+
+# Instructions for utilisation
+
+
+# Project Architecture
+This project can be easily divided into a clear front end component which we deploy using GitHub pages and a back end component which involves a server deployed on Heroku (https://intense-basin-71843.herokuapp.com/) using NodeJS and the express module which communicates between our database and our Front End Application. There are also some scripts we utilised to both extract and sort the data we were interested in and place said data in the database.
+
+# Front End Description
+
+# Back End Description
+Firstly we have our database which is hosted on MongoDB and contains two collections, the first being the data we extracted and the second being a sorted version of that data. The data was sorted to make it easier for the front end to implement real time udpdate for the application. The data was sorted using a very basic version of insertion sort, therefore the sorting is quite inefficient and slow, however once the data is in the database the script needs not to be run again. This same script (data-manipulator.js) can be utilsed to extract data for any other country's public transport system.
+
+
+# Abstracts
 To calculate how a current stop should be displaced use the following formula where:
  - time_i is the time from current stop to stop_i
  - time_a is the average time to each stop
@@ -16,7 +31,3 @@ This will output a number >= 0. Eg. if 0.5 is the result then the distance betwe
 Similarly if 2 is the result the distance should be doubled.
 
 This number will then be used in the point dividing a line segment formula to generate the new point.
-
-Backend data retriever hosted at https://intense-basin-71843.herokuapp.com/
-
-https://intense-basin-71843.herokuapp.com/data returns the current example data
