@@ -295,6 +295,51 @@ function plotOrigin(lat, long, title){
 // }
 
 
+//Adds message box to the map to display and information to the user for example: Terminal Station 
+//or No departure at certain time etc.
+L.Control.Messagebox = L.Control.extend({
+    options: {
+        position: 'bottomleft',
+        timeout: 1500
+    },
+
+    onAdd: function (mymap) {
+        this._container = L.DomUtil.create('div', 'leaflet-control-messagebox');
+        return this._container;
+    },
+
+    show: function (message, timeout) {
+        var element = this._container;
+        element.innerHTML = message;
+        element.style.display = 'block';
+
+        timeout = timeout || this.options.timeout;
+
+        if (typeof this.timeoutID == 'number') {
+            clearTimeout(this.timeoutID);
+        }
+        this.timeoutID = setTimeout(function () {
+            element.style.display = 'none';
+        }, timeout);
+    }
+});
+
+L.Map.mergeOptions({
+    messagebox: false
+});
+
+L.Map.addInitHook(function () {
+    if (this.options.messagebox) {
+        this.messagebox = new L.Control.Messagebox();
+        this.addControl(this.messagebox);
+    }
+});
+
+L.control.messagebox = function (options) {
+    return new L.Control.Messagebox(options);
+};
+
+
 function getSampleData(stationId) {
 	// the sample input data located at https://intense-basin-71843.herokuapp.com/data
 	// was converted from a json to a csv, and is then loaded into 'sampleData' as seen below
@@ -312,6 +357,9 @@ function getSampleData(stationId) {
 			if (data == "No Data Found (Check stop ID)") {
 				console.log("Terminal Station - No Data");
 				terminalStation = true;
+				var options = { timeout: 1500 }
+				var box = L.control.messagebox(options).addTo(mymap);
+				box.show( 'This is the Terminal Station' );
 				mymap.setView(centres.ireland, zooms.ireland);
 			} else {
 				terminalStation = false;
@@ -425,7 +473,9 @@ function trainHasNotLeft(timeOfDeparture){
 	if(Number(current)<Number(departureTime)){
 		return true;
 	} else return false;
-	
+		//var options = { timeout: 5000 }
+		//var box = L.control.messagebox(options).addTo(mymap);
+		//box.show( 'No trains at this time.' );
 	return false;
 	
 }
