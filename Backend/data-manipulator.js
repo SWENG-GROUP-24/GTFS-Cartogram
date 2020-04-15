@@ -4,12 +4,15 @@ const parse = require('csv-parse');
 
 var password = "";
 
+//reading password required to access the database
+//from a local file for security reasons
 try {
   password = fs.readFileSync('mongo_password.txt', 'UTF-8');
 } catch(err){
   console.log(err);
 }
 
+//establishing connection with our database
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://mendesr:"+password+"@sweng-ncj49.mongodb.net/test?retryWrites=true&w=majority";
 
@@ -60,6 +63,7 @@ var stopTimesParser = parse({delimiter: ','}, function (err, data){
     }
   }
 
+  //sending all the data to the database
   var dataToSend;
   sort(processedData);
   Object.keys(processedData).forEach(function(key) {
@@ -72,6 +76,8 @@ var stopTimesParser = parse({delimiter: ','}, function (err, data){
 
 fs.createReadStream(inputFile).pipe(stopTimesParser);
 
+//function in charge of communicating and sending
+//data to the database
 async function sendData (processedData) {
   const client = await MongoClient.connect(uri, {useUnifiedTopology: true})
     .catch(err => { console.log('Error occurred while connecting to MongoDB Atlas...\n',err); });
@@ -95,6 +101,10 @@ async function sendData (processedData) {
   }
 }
 
+//implementation of insertion sort
+//utilised to sort destination stations
+//by departure time from start station
+//in ascending order
 function sort (processedData) {
   var temp;
   var count=0;

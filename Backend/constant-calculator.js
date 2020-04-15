@@ -1,6 +1,8 @@
 var fs = require('fs');
 var parse = require('csv-parse');
 
+//file containing the latitudes and longitudes of 
+//each stop
 var inputFile='gtfs_data/shapes.txt';
 
 var shape = [];
@@ -16,6 +18,7 @@ var numberOfDistances = 0;
 var averageDistance = 0;
 
 var parser = parse({delimiter: ','}, function (err, data){
+  //we read the file line by line
   data.forEach(function(line){
     //makes sure that headers are not selected
     if (line[1]==="shape_pt_lat"){
@@ -27,6 +30,9 @@ var parser = parse({delimiter: ','}, function (err, data){
 
     currentShapeID = line[0];
 
+    //when we move on to a new shape and therefore a new route
+    //we want to make sure to calculate the distance between
+    //any two points on the previous route before continuing
     if (currentShapeID!==lastShapeID && shape !== undefined && shape.length != 0) {
       for (var i=0; i<shape.length; i++) {
         for (var j=i+1; j<shape.length; j++) {
@@ -42,6 +48,8 @@ var parser = parse({delimiter: ','}, function (err, data){
     lastShapeID = currentShapeID;
     shape.push({"lat":lat, "lon":lon});
   });
+  //we need to ensure that the last shape
+  //is also considered for our calculation
   for (var i=0; i<shape.length; i++) {
     for (var j=i+1; j<shape.length; j++) {
       currentDistance=calculateDistance(shape[i].lat, shape[i].lon, shape[j].lat, shape[j].lon);
@@ -56,8 +64,12 @@ var parser = parse({delimiter: ','}, function (err, data){
   console.log(averageDistance);
 });
 
+//call to read the shapes.txt file
 fs.createReadStream(inputFile).pipe(parser);
 
+//function used to calculate the distance between two points
+//based on their latitude and longitude
+//taken from the StackOverflow
 function calculateDistance (lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
