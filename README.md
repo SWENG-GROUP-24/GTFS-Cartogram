@@ -8,12 +8,18 @@ Github page : https://sweng-group-24.github.io/GTFS-Cartogram/
 
 
 # Project Architecture
-This project can be easily divided into a clear front end component which we deploy using GitHub pages and a back end component which involves a server deployed on Heroku (https://intense-basin-71843.herokuapp.com/) using NodeJS and the express module which communicates between our database and our Front End Application. There are also some scripts we utilised to both extract and sort the data we were interested in and place said data in the database.
+This project can be easily divided into a clear front end component which we deploy using GitHub pages and a back end component which involves a server deployed on Heroku (https://eu-cartomaps.herokuapp.com/) using NodeJS and the express module which communicates between our database and our Front End Application. There are also some scripts we utilised to both extract and sort the data we were interested in and place said data in the database.
 
 # Front End Description
 
 # Back End Description
 Firstly we have our database which is hosted on MongoDB and contains two collections, the first being the data we extracted and the second being a sorted version of that data. The data was sorted to make it easier for the front end to implement real time udpdate for the application. The data was sorted using a very basic version of insertion sort, therefore the sorting is quite inefficient and slow, however once the data is in the database the script needs not to be run again. This same script (data-manipulator.js) can be utilsed to extract data for any other country's public transport system.
+
+This database is hosted on a free Heroku server. This type of server goes to sleep pretty quickly so normally the first search in our app will take an extra few seconds as the server must first be woken. 
+
+The server simply takes a station ID as a parameter through the URL, searches the database for the ID and returns what it finds.
+
+It is written in Node.js and Express and its source code (minus sensitive data) can be found in the Backend folder. 
 
 
 # Abstracts
