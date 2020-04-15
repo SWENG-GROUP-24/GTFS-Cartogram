@@ -61,6 +61,7 @@ var stopTimesParser = parse({delimiter: ','}, function (err, data){
   }
 
   var dataToSend;
+  sort(processedData);
   Object.keys(processedData).forEach(function(key) {
     dataToSend={};
     dataToSend={_id:key};
@@ -82,7 +83,7 @@ async function sendData (processedData) {
   try {
     const db = client.db("CartoMaps");
 
-    let collection = db.collection("Stations");
+    let collection = db.collection("Sorted-Stations");
 
     let res = await collection.insert(processedData);
 
@@ -91,5 +92,28 @@ async function sendData (processedData) {
     console.log(err);
   } finally {
     client.close();
+  }
+}
+
+function sort (processedData) {
+  var temp;
+  var count=0;
+  for (key of Object.keys(processedData)) {
+    for(var i = 1; i<processedData[key].length; i++) {
+      tempData = processedData[key][i];
+      tempString = processedData[key][i].departure_time;
+      for(var j = i-1; j>=0; j--){
+        var currentString = processedData[key][j].departure_time;
+        var currentSplit = currentString.split(":");
+        var tempSplit = tempString.split(":");
+        var currentDate = new Date(1,1,1,currentSplit[0],currentSplit[1], currentSplit[2]);
+        var tempDate = new Date(1,1,1,tempSplit[0],tempSplit[1], tempSplit[2]);
+        if (tempDate.getTime() < currentDate.getTime()){
+          processedData[key][j+1]=processedData[key][j];
+          processedData[key][j] = tempData;
+        }
+      }
+    }
+    count++;
   }
 }
