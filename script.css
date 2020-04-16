@@ -207,14 +207,13 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-# sourceMappingURL=script.css.map
-
-
 /*Messagebox to display any information to the users*/
 .leaflet-control-messagebox {
 	display: none; /* Initially hidden */
 	border: 2px solid red; /* red border */
 	background-color: clear; /* clear background */
 	padding: 3px 10px;
-	color: white;
+	color: white; /* tezt colour */
 }
+
+# sourceMappingURL=script.css.map
