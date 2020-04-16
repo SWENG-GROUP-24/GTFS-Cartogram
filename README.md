@@ -5,6 +5,7 @@ Github page : https://sweng-group-24.github.io/GTFS-Cartogram/
 **Pease read below for instructions of use**
 
 # Instructions for utilisation
+Simply Search for your start station in the search bar, after the application is done loading the visualisation will be displayed to the user. The red markers represent where the original stations were, while the green markers represent where the stations are based on our mathematical distortion based on time. The biggest red marker represents the start station. To see which station each marker represents simply hover over them on click on the marker. If the stations are shown it is because the user picked a Terminal station.
 
 
 # Project Architecture
