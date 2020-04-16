@@ -15,7 +15,7 @@ body {
 }
     
 
-.container {      /*this contains the searchbox, information, submit and the clock elements*/
+.container {      /*this contains the searchbox, information,and the clock elements*/
   /*width: 20vw;
   height: 20vh;*/
   display: flex;              /*container size is flexible*/
@@ -23,19 +23,18 @@ body {
   align-items: center;        /*align contents vertically*/
 }
 
-.container .information{
-  position: absolute;
+.container .information{  
+  position: absolute;    /* position relative to container*/ 
     top: 10%;
     left: 90%;
     display: block;
     width: 100%;
     max-width: 50px;
-    overflow: hidden;
-    z-index: 2; 
+    z-index: 2;     
 }
 
   .container .information .information_button{
-    display: block;
+    display: block;   
       appearance: none;
       width: 100%;
       border: none;
@@ -45,90 +44,90 @@ body {
       padding: 15px;
       color: #24233A;
       font-size: 14px;
-      cursor: pointer
+      cursor: pointer  /*allows for clicking*/
   }
 
     .container .information .information_icon{
       position: absolute;
-      right: calc(53px / 2);
+      right: calc(53px / 2);  /*defines distance between right edge of icon and next elem*/
       top: 50%;
-      transform: translate(50%, -50%);     /*moves clock icon when hovered over*/
+      transform: translate(50%, -50%);     /*centers icon*/
       width: 20px;
       height: 20px;
       pointer-events: none;
     }
       .container .information .information_icon path{
-        fill: #00F494;
+        fill: #00F494;  /*mint green*/
       }
   
 
   .container .searchbox {
-    position: absolute;
+    position: absolute;   /* relative to container position*/
     top: 10%;
     left: 10%;
-    display: block;
+    display: block;    /* display takes full width of searchbox*/
     width: 100%;
     max-width: 53px;
     transition: 0.4s linear;
     overflow: hidden;     /*Hides characters that dont fit*/
-    z-index: 2; 
+    z-index: 2;            /*specifies the stack order of an element, search box is 2nd layer*/
   }
     .container .searchbox .searchbox__input {
       display: block;   /*display takes full width of the "searchbox__input"*/
-      appearance: none;
+      appearance: none;  /*removes any default styling*/
       width: 100%;
       border: none;
       outline: none;
-      border-radius: 50px;
-      background-color: #24233A;
+      border-radius: 50px;  /*roundness of border*/
+      background-color: #24233A;/*navy*/
       padding: 15px;  /*space between text and border*/
-      color: #24233A;
+      color: #24233A; /*text color: navy*/
       font-size: 20px;
-      cursor: pointer;
-      transition: 0.3s linear; 
+      cursor: pointer; /*allows for cursor to click */
+      transition: 0.3s linear;   /*speed that searchbox widens at*/
     }
       .container .searchbox .searchbox__input::placeholder {
         color: #24233A; 
       }
     .container .searchbox .searchbox__icon {
-      position: absolute;
-      right: calc(53px / 2);
-      top: 50%;
-      transform: translate(50%, -50%);    /*moves icon when you hover*/
+      position: absolute;   /*searchbox positioned relative to the container position*/
+      right: calc(53px / 2);     /*defines distance between icon and edge of container, ensures icon moves when search box opens*/
+      top: 50%;  /*positioning*/
+      transform: translate(50%, -50%);    /*centers icon*/
       width: 20px;
       height: 20px;
       pointer-events: none; 
     }
       .container .searchbox .searchbox__icon path {
-        fill: #00F494;
-        transition: 0.3s linear; 
+        fill: #00F494;      /*mint green*/
+        transition: 0.3s linear; /*speed for animation*/
       }
-    .container .searchbox:focus-within {
-      max-width: 300px;     /*widens search box when hovered over*/
+    .container .searchbox:focus-within {  /*when clicked...*/
+      max-width: 300px;     /*searchbox widens to 300px*/
     }
-      .container .searchbox:focus-within .searchbox__input {
-        background-color: #FFF;
-        padding-right: 50px;
-        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+      .container .searchbox:focus-within .searchbox__input {  /*when clicked...*/
+        background-color: #FFF; /*white*/
+        padding-right: 50px;  
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);  /*slight shadow*/
        }
       .container .searchbox:focus-within .searchbox__icon path {
-        fill: #24233A; 
+        fill: #24233A;   /*navy*/
       }
       .container .searchbox .loader {
-        position: absolute;
-      right: calc(25px / 2);
+        position: absolute;  
+      right: calc(25px / 2);   /*defines distance from end of container, ensures loader moves to the right when search box opens*/
       top: 25%;
-      transform: translate(50%, -50%);
-      border: 3px solid #030303;
-      border-radius: 50%;
+      transform: translate(50%, -50%);  /*centers*/
+      border: 3px solid #030303; /* appearance*/
+      border-radius: 50%;        
       border-top: 3px solid #00F494;
       width: 30px;
       height: 30px;
-      -webkit-animation: spin 2s linear infinite;
+      -webkit-animation: spin 2s linear infinite;   
       /* Safari */
       animation: spin 2s linear infinite; 
       }
-      @-webkit-keyframes spin {
+      @-webkit-keyframes spin {         /*spin animation*/
   0% {
     -webkit-transform: rotate(0deg); }
   100% {
@@ -138,7 +137,7 @@ body {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
-  .container .clock {
+  .container .clock {    /* clock elem styling*/
     position: absolute;
     top: 19%;
     left: 10%;
@@ -209,11 +208,11 @@ input[type=number] {
 
 /*Messagebox to display any information to the users*/
 .leaflet-control-messagebox {
-	display: none; /* Initially hidden */
-	border: 2px solid red; /* red border */
-	background-color: clear; /* clear background */
-	padding: 3px 10px;
-	color: white; /* text colour */
+  display: none; /* Initially hidden */
+  border: 2px solid red; /* red border */
+  background-color: clear; /* clear background */
+  padding: 3px 10px;
+  color: white; /* text colour */
 }
 
 # sourceMappingURL=script.css.map
