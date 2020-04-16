@@ -143,7 +143,7 @@ body {
     left: 10%;
     display: block;
     width: 100%;
-    max-width: 53px;
+    max-width: 140px;
     transition: 0.4s linear;
     overflow: hidden;
     z-index: 2; 
@@ -157,10 +157,11 @@ body {
       border-radius: 50px;
       background-color: #24233A;
       padding: 15px;
-      color: #24233A;
+      color: #FFF;
       font-size: 14px;
       cursor: pointer;
       transition: 0.4s linear; 
+	  
     }
       .container .clock .clock__input::placeholder {
         color: #24233A; 
@@ -185,6 +186,7 @@ body {
         background-color: #FFF;
         padding-right: 50px;
         box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+		color: #24233A;
        }
       .container .clock:focus-within .clock__icon path {
         fill: #24233A; 
@@ -205,6 +207,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+# sourceMappingURL=script.css.map
+
 
 /*Messagebox to display any information to the users*/
 .leaflet-control-messagebox {
